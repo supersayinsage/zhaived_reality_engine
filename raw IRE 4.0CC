@@ -1,0 +1,166 @@
+This work is licensed under the Creative Commons 
+Attribution-NonCommercial-NoDerivatives 4.0 International License.
+
+You are free to:
+- Share — copy and redistribute the material in any medium or format
+
+Under the following terms:
+- Attribution — You must give appropriate credit.
+- NonCommercial — You may not use the material for commercial purposes.
+- NoDerivatives — You may not distribute modified material.
+THIS WAS NOT MADE WITH ZHAIVED
+No additional rights are granted beyond those listed above.
+meowffrimative
+from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import List, Dict, Tuple
+import random
+import uuid
+import math
+
+# -------------------------
+# Core Types
+# -------------------------
+
+GlyphId = str
+StateVector = Tuple[float, ...]
+Probability = float
+
+def new_id() -> GlyphId:
+    return str(uuid.uuid4())
+
+def clamp(x: float, lo: float = 0.0, hi: float = 1.0) -> float:
+    return max(lo, min(hi, x))
+
+# -------------------------
+# Mystera (minimal form)
+# -------------------------
+
+@dataclass
+class Mystera:
+    id: GlyphId = field(default_factory=new_id)
+    state: StateVector = field(default_factory=lambda: (
+        random.random(), random.random(), random.random(), random.random()
+    ))
+    lineage: List[GlyphId] = field(default_factory=list)
+
+    def clone(self) -> Mystera:
+        new_state = tuple(
+            clamp(v + random.uniform(-0.1, 0.1))
+            for v in self.state
+        )
+        return Mystera(
+            state=new_state,
+            lineage=self.lineage + [self.id],
+        )
+
+    def interact(self, other: Mystera) -> Mystera:
+        combined_state = tuple(
+            clamp((a + b) / 2.0 + random.uniform(-0.05, 0.05))
+            for a, b in zip(self.state, other.state)
+        )
+        combined_lineage = self.lineage + [self.id] + other.lineage + [other.id]
+        return Mystera(
+            state=combined_state,
+            lineage=combined_lineage,
+        )
+
+# -------------------------
+# Prophecy Engine
+# -------------------------
+
+@dataclass
+class FutureState:
+    state: StateVector
+    probability: Probability
+
+@dataclass
+class ProphecyEngine:
+    horizon: int = 3
+    branches: int = 4
+
+    def project(self, mystera: Mystera) -> List[FutureState]:
+        futures = []
+        base = mystera.state
+
+        for _ in range(self.branches):
+            s = base
+            for _ in range(self.horizon):
+                s = tuple(
+                    clamp(v + random.uniform(-0.1, 0.1))
+                    for v in s
+                )
+            futures.append(FutureState(state=s, probability=1.0 / self.branches))
+
+        return futures
+
+# -------------------------
+# IRE (Impossible Reality Engine)
+# -------------------------
+
+@dataclass
+class IREConfig:
+    max_mystera: int = 128
+    evolution_rate: float = 0.5
+    interaction_rate: float = 0.3
+
+@dataclass
+class IRE:
+    config: IREConfig = field(default_factory=IREConfig)
+    mystera_population: List[Mystera] = field(default_factory=list)
+    prophecy_engine: ProphecyEngine = field(default_factory=ProphecyEngine)
+
+    def seed(self, count: int = 8) -> None:
+        """Seed the IRE with a number of Mystera."""
+        for _ in range(count):
+            self.mystera_population.append(Mystera())
+
+    def step(self) -> None:
+        """One evolution step."""
+        new_population = []
+
+        # Mutation
+        for m in self.mystera_population:
+            if random.random() < self.config.evolution_rate:
+                new_population.append(m.clone())
+            else:
+                new_population.append(m)
+
+        # Interaction
+        if len(new_population) > 1:
+            random.shuffle(new_population)
+            interacted = []
+            i = 0
+            while i < len(new_population) - 1:
+                a = new_population[i]
+                b = new_population[i + 1]
+                if random.random() < self.config.interaction_rate:
+                    interacted.append(a.interact(b))
+                    i += 2
+                else:
+                    interacted.append(a)
+                    i += 1
+            if i == len(new_population) - 1:
+                interacted.append(new_population[-1])
+            new_population = interacted
+
+        # Population control
+        if len(new_population) > self.config.max_mystera:
+            new_population = random.sample(new_population, self.config.max_mystera)
+
+        self.mystera_population = new_population
+
+    def project_futures(self) -> Dict[GlyphId, List[FutureState]]:
+        return {
+            m.id: self.prophecy_engine.project(m)
+            for m in self.mystera_population
+        }
+
+    def snapshot(self) -> Dict:
+        return {
+            "population_size": len(self.mystera_population),
+            "mystera": [
+                {"id": m.id, "state": m.state, "lineage": m.lineage}
+                for m in self.mystera_population
+            ],
+        }
