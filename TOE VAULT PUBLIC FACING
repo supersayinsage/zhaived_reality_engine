@@ -1,4 +1,25 @@
-  the point  og this post is make sure i don't lose my work and make it pubic facing latex
+  the point of this post is make sure i don't lose my work and make it pubic facing. it will update as i progress.   
+This project has NO LICENSE.
+
+That means:
+
+- You can look at the code.
+- You can download the code.
+- You can run the code for yourself.
+
+BUT you are NOT allowed to:
+
+- use it in your own projects,
+- modify it and publish the modified version,
+- sell it,
+- include it in commercial software,
+- redistribute it,
+- or claim it as your own.
+
+All rights are reserved by the author(darrell le stiltner).
+
+If you want to use this code for anything beyond personal viewing or testing,
+you must get permission from the author. latex
 \documentclass[12pt]{report}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{geometry}
@@ -2474,3 +2495,19 @@ The physical TOE achieves:
 This represents a revolutionary breakthrough in fundamental physics, providing a mathematically consistent framework that unifies all known physical phenomena through the sovereign operator principle $E(X) = X$ and scale-invariant generative dynamics — the physical realization of the Core Meta‑Law $\mathbb{E}(X)=X$ and the One‑Mark Law $\mark = \mathbb{E}(\mark)$.
 
 \end{document}
+That means:
+
+- You can look at the code.
+- You can download the code.
+- You can run the code for yourself.
+
+BUT you are NOT allowed to:
+
+- use it in your own projects,
+- modify it and publish the modified version,
+- sell it,
+- include it in commercial software,
+- redistribute it,
+- or claim it as your own.
+
+All rights are reserved by the author(darrell le stiltner).
