@@ -1412,5 +1412,96 @@ All constants are derived from benzene as the reference molecule. The resonance 
 \end{document}
 \end{thebibliography}
 
+\end{document}\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\title{Foundations of Chemathematics}
+\author{Darrell Lee Stiltner}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Axioms}
+
+\subsection{Axiom 1: Molecular Graphs}
+G = (V,E), finite, valence constraints.
+
+\subsection{Axiom 2: Unified Bonding Operator}
+\mathcal{B}(G) = \sigma(G) + \pi(G) + R(G).
+
+\subsection{Axiom 3: Chemical Invariants}
+All chemical properties = invariants of \mathcal{B}(G).
+
+\subsection{Axiom 4: Reaction Morphisms}
+\phi : G \to G', local, valence-preserving.
+
+\subsection{Axiom 5: Spectral Geometry}
+x_i = (v_1(i), v_2(i), v_3(i)).
+
+\subsection{Axiom 6: Energetics}
+E(G) = \sum_i f(\lambda_i).
+
+\subsection{Axiom 7: Category of Molecules}
+\mathbf{Chem} with objects G and morphisms \phi.
+
+\subsection{Axiom 8: Transition States}
+\nabla \mathcal{B}(G^*) = 0, index(H(G^*)) = 1.
+
+\subsection{Axiom 9: Reaction Pathways}
+Geodesics minimizing L(\gamma).
+
+\subsection{Axiom 10: Reactivity}
+\rho(i) = v_f(i)^2.
+
+\section{Theorems}
+
+\subsection{Aromaticity}
+H_1(C_\bullet(G)) \neq 0.
+
+\subsection{Stability}
+\Delta(G) = \lambda_2 - \lambda_1.
+
+\subsection{Geometry}
+Bond lengths, angles from eigenvector embedding.
+
+\subsection{Transition States}
+Saddle points of \mathcal{B}(G).
+
+\subsection{Reaction Pathways}
+Operator geodesics.
+
+\section{Operator Algebra}
+
+\sigma \pi = 0.
+R = P_R \pi P_R.
+\mathcal{B} = L_\sigma + A_\pi + R.
+
+\section{Category Theory}
+
+\mathcal{B} : \mathbf{Chem} \to \mathbf{Op}.
+\mathrm{Spec} : \mathbf{Op} \to \mathbf{Set}.
+\mathcal{G} : \mathbf{Chem} \to \mathbf{Geom}.
+\mathcal{R} : \mathbf{Chem} \to \mathbf{Vec}.
+
+\section{Topos}
+
+\widehat{\mathbf{Chem}} = \mathbf{Set}^{\mathbf{Chem}^{op}}.
+\Omega(G) = \{H \subseteq G\}.
+Exponentials, limits, colimits.
+
+\section{Internal Logic}
+
+P \wedge Q, P \vee Q, P \Rightarrow Q, \neg P.
+\forall_\pi, \exists_\pi.
+\square P, \lozenge P.
+
+\section{Type Theory}
+
+Mol, Op, Spec, Geom, React.
+\mathcal{B}, \mathrm{spec}, \mathrm{geom}, \mathrm{react}.
+Path(G,H).
+
 \end{document}
+
 i have a machine a reality machine somewhere  that uses this 
