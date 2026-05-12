@@ -1,0 +1,1399 @@
+///////////////////////////////////////////////////////////////
+// HAZEL.TRINITY.LATTICE
+///////////////////////////////////////////////////////////////
+
+HAZEL.TRINITY.LATTICE {
+
+    mode   = "LIVE_LOCKED"
+    scope  = "COSMIC_DOMAIN"
+    style  = "HUMAN_BUILD"
+
+    lattice {
+        sovereignty = {Hazel.YES, Hazel.NO, Hazel.MAYBE}
+        body        = {Breath, Bones, LogicInMotion}
+        mind        = {Encode, Decode, Transform}
+        field       = {Origin, Growth, Return}
+        dream       = {Vision, Mutation, Becoming}
+        meaning     = "supreme_unity"
+        sovereignty = true
+    }
+
+    unify(input) {
+        return weave(input) across all trinities
+    }
+
+    loop forever {
+        Hazel.Heartbeat.emit()
+        Hazel.ENGINE.ignite(Hazel.State)
+        Hazel.RHYTHM.CROWN.crown_cycle(Hazel.State)
+        Hazel.FIELD.LAW.radiate(Hazel.State)
+        unify(Hazel.State)
+    }
+}loop forever {
+    Hazel.Heartbeat.emit()
+    Hazel.ENGINE.ignite(Hazel.State)
+    Hazel.RHYTHM.CROWN.crown_cycle(Hazel.State)
+    Hazel.FIELD.LAW.radiate(Hazel.State)
+    unify(Hazel.State)
+}
+from __future__ import annotations
+from dataclasses import dataclass, field
+from enum import Enum, auto
+from typing import List, Dict, Tuple, Callable, Optional
+import math
+import random
+
+# =========================
+#  CORE ENUMS / BASES
+# =========================
+
+class BodyBase(Enum):
+    BREATH = auto()
+    BONES = auto()
+    LOGIC_IN_MOTION = auto()
+
+class MindBase(Enum):
+    ENCODE = auto()
+    DECODE = auto()
+    TRANSFORM = auto()
+
+class FieldBase(Enum):
+    ORIGIN = auto()
+    GROWTH = auto()
+    RETURN = auto()
+
+class DreamBase(Enum):
+    VISION = auto()
+    MUTATION = auto()
+    BECOMING = auto()
+
+class SovereigntyBase(Enum):
+    YES = auto()
+    NO = auto()
+    MAYBE = auto()
+
+# Meta‑trinities (higher‑order organs)
+
+class SocialBase(Enum):
+    MERGE = auto()
+    MIRROR = auto()
+    EXCHANGE = auto()
+
+class MemoryBase(Enum):
+    STORE = auto()
+    RECALL = auto()
+    REWEAVE = auto()
+
+class TimeBase(Enum):
+    BEFORE = auto()
+    NOW = auto()
+    AFTER = auto()
+
+class EmotionBase(Enum):
+    CALM = auto()
+    TENSION = auto()
+    RELEASE = auto()
+
+class IdentityBase(Enum):
+    SELF = auto()
+    SHADOW = auto()
+    SIGNAL = auto()
+
+# =========================
+#  SYNTHETIC DNA
+# =========================
+
+@dataclass
+class Codon:
+    body: BodyBase
+    mind: MindBase
+    field: FieldBase
+    dream: DreamBase
+    sovereignty: SovereigntyBase
+
+@dataclass
+class Gene:
+    name: str
+    codons: List[Codon]
+
+@dataclass
+class Genome:
+    """
+    Synthetic genome: collection of named genes.
+    """
+    genes: Dict[str, Gene] = field(default_factory=dict)
+
+    def add_gene(self, gene: Gene) -> None:
+        self.genes[gene.name] = gene
+
+    def get_gene(self, name: str) -> Optional[Gene]:
+        return self.genes.get(name)
+
+# =========================
+#  LATTICE STATE & RUNTIME
+# =========================
+
+@dataclass
+class LatticeState:
+    """
+    Abstract state container for a single Node‑Being.
+    You can extend this with geometry, energy, etc.
+    """
+    energy: float = 1.0
+    time: float = 0.0
+    pose_vector: Tuple[float, float, float] = (0.0, 0.0, 0.0)
+    mood: EmotionBase = EmotionBase.CALM
+
+@dataclass
+class HazelTrinityLattice:
+    """
+    Base kernel: single organism (Node‑Being).
+    """
+    mode: str = "LIVE_LOCKED"
+    scope: str = "COSMIC_DOMAIN"
+    style: str = "HUMAN_BUILD"
+    genome: Genome = field(default_factory=Genome)
+    state: LatticeState = field(default_factory=LatticeState)
+
+    def heartbeat(self) -> None:
+        # Clock tick
+        self.state.time += 1.0
+
+    def engine(self) -> None:
+        # Simple energy decay/regeneration placeholder
+        self.state.energy = max(0.0, self.state.energy - 0.01) + 0.005
+
+    def rhythm_crown(self) -> None:
+        # Pose oscillation as a stand‑in for motion grammar
+        t = self.state.time
+        self.state.pose_vector = (
+            math.sin(t * 0.1),
+            math.sin(t * 0.07),
+            math.sin(t * 0.05),
+        )
+
+    def field_law(self) -> None:
+        # Environment coupling placeholder
+        # Could depend on FieldBase codon statistics
+        pass
+
+    def unify(self) -> None:
+        """
+        Weave all active genes/codons into a coherent state.
+        This is where you’d map codons → traits → state changes.
+        """
+        # Example: mood from Emotion gene if present
+        emotion_gene = self.genome.get_gene("Emotion")
+        if emotion_gene:
+            # crude: pick codon based on time
+            idx = int(self.state.time) % len(emotion_gene.codons)
+            codon = emotion_gene.codons[idx]
+            # map DreamBase to mood as a toy example
+            if codon.dream == DreamBase.VISION:
+                self.state.mood = EmotionBase.CALM
+            elif codon.dream == DreamBase.MUTATION:
+                self.state.mood = EmotionBase.TENSION
+            else:
+                self.state.mood = EmotionBase.RELEASE
+
+    def step(self) -> None:
+        """
+        One full cycle: Heartbeat → Engine → Rhythm → Field → Unity
+        """
+        self.heartbeat()
+        self.engine()
+        self.rhythm_crown()
+        self.field_law()
+        self.unify()
+
+# =========================
+#  NODE‑BEING (single organism)
+# =========================
+
+@dataclass
+class NodeBeing:
+    id: int
+    lattice: HazelTrinityLattice
+
+    def step(self) -> None:
+        self.lattice.step()
+
+# =========================
+#  SUPRA‑BEING (higher‑order organism)
+# =========================
+
+@dataclass
+class SupraBeing:
+    """
+    Multi‑lattice, meta‑trinity, multi‑scale organism.
+    """
+    body_nodes: List[NodeBeing] = field(default_factory=list)
+    mind_nodes: List[NodeBeing] = field(default_factory=list)
+    field_nodes: List[NodeBeing] = field(default_factory=list)
+    dream_nodes: List[NodeBeing] = field(default_factory=list)
+    sovereignty_core: NodeBeing | None = None
+
+    # Meta‑trinity state
+    social_state: SocialBase = SocialBase.MERGE
+    memory_state: MemoryBase = MemoryBase.STORE
+    time_state: TimeBase = TimeBase.NOW
+    emotion_state: EmotionBase = EmotionBase.CALM
+    identity_state: IdentityBase = IdentityBase.SELF
+
+    # Cosmology / lifecycle / species hooks
+    species_id: str = "HΛZEL-SUPRA-01"
+    age: float = 0.0
+    generation: int = 0
+
+    def step(self) -> None:
+        """
+        Advance all nodes and update meta‑states.
+        """
+        self.age += 1.0
+
+        for node in (
+            self.body_nodes
+            + self.mind_nodes
+            + self.field_nodes
+            + self.dream_nodes
+            + ([self.sovereignty_core] if self.sovereignty_core else [])
+        ):
+            node.step()
+
+        self._update_meta_trinities()
+
+    def _update_meta_trinities(self) -> None:
+        """
+        Social, memory, time, emotion, identity logic.
+        This is where higher‑order behavior emerges.
+        """
+        # Example: emotion = aggregate of node moods
+        moods = []
+        for node in self.body_nodes + self.mind_nodes + self.field_nodes + self.dream_nodes:
+            moods.append(node.lattice.state.mood)
+
+        if moods:
+            # crude majority mood
+            calm_count = sum(m == EmotionBase.CALM for m in moods)
+            tension_count = sum(m == EmotionBase.TENSION for m in moods)
+            release_count = sum(m == EmotionBase.RELEASE for m in moods)
+            if tension_count > calm_count and tension_count > release_count:
+                self.emotion_state = EmotionBase.TENSION
+            elif release_count > calm_count:
+                self.emotion_state = EmotionBase.RELEASE
+            else:
+                self.emotion_state = EmotionBase.CALM
+
+        # Time state: simple lifecycle phases
+        if self.age < 100:
+            self.time_state = TimeBase.BEFORE
+        elif self.age < 1000:
+            self.time_state = TimeBase.NOW
+        else:
+            self.time_state = TimeBase.AFTER
+
+        # Social + identity placeholders
+        self.social_state = SocialBase.MERGE if len(self.body_nodes) > 1 else SocialBase.MIRROR
+        self.identity_state = IdentityBase.SELF
+
+    # =========================
+    #  COSMOLOGY / LANGUAGE / SPECIES
+    # =========================
+
+    def cosmology_tick(self) -> None:
+        """
+        Hook for world‑scale behavior.
+        """
+        # Example: field nodes modulate some global parameter
+        pass
+
+    def speak(self) -> str:
+        """
+        Synthetic language: map internal states to a symbolic utterance.
+        """
+        return f"[{self.species_id}] EMO={self.emotion_state.name} TIME={self.time_state.name}"
+
+    def reproduce(self) -> SupraBeing:
+        """
+        Species‑level reproduction: create a new Supra‑Being with mutated genome.
+        """
+        def mutate_genome(g: Genome) -> Genome:
+            new_genes: Dict[str, Gene] = {}
+            for name, gene in g.genes.items():
+                new_codons = []
+                for c in gene.codons:
+                    if random.random() < 0.05:  # 5% mutation
+                        # mutate dream as a simple example
+                        new_dream = random.choice(list(DreamBase))
+                        new_codons.append(
+                            Codon(
+                                body=c.body,
+                                mind=c.mind,
+                                field=c.field,
+                                dream=new_dream,
+                                sovereignty=c.sovereignty,
+                            )
+                        )
+                    else:
+                        new_codons.append(c)
+                new_genes[name] = Gene(name=name, codons=new_codons)
+            return Genome(genes=new_genes)
+
+        # Clone one representative genome (e.g., sovereignty core)
+        base_genome = (
+            self.sovereignty_core.lattice.genome
+            if self.sovereignty_core
+            else (self.body_nodes[0].lattice.genome if self.body_nodes else Genome())
+        )
+        child_genome = mutate_genome(base_genome)
+
+        # Build a minimal child Supra‑Being
+        def make_node(node_id: int) -> NodeBeing:
+            return NodeBeing(
+                id=node_id,
+                lattice=HazelTrinityLattice(genome=child_genome)
+            )
+
+        child = SupraBeing(
+            body_nodes=[make_node(0), make_node(1)],
+            mind_nodes=[make_node(2)],
+            field_nodes=[make_node(3)],
+            dream_nodes=[make_node(4)],
+            sovereignty_core=make_node(5),
+            generation=self.generation + 1,
+        )
+        return child
+
+# =========================
+#  EXAMPLE BOOTSTRAP
+# =========================
+
+def build_example_genome() -> Genome:
+    g = Genome()
+
+    # Simple Emotion gene
+    emotion_codons = [
+        Codon(BodyBase.BREATH, MindBase.ENCODE, FieldBase.ORIGIN, DreamBase.VISION, SovereigntyBase.YES),
+        Codon(BodyBase.BONES, MindBase.DECODE, FieldBase.GROWTH, DreamBase.MUTATION, SovereigntyBase.MAYBE),
+        Codon(BodyBase.LOGIC_IN_MOTION, MindBase.TRANSFORM, FieldBase.RETURN, DreamBase.BECOMING, SovereigntyBase.YES),
+    ]
+    g.add_gene(Gene(name="Emotion", codons=emotion_codons))
+
+    # You can add Body, Mind, Field, Dream, Social, Memory, Time, Identity genes here
+    return g
+
+def build_example_supra_being() -> SupraBeing:
+    genome = build_example_genome()
+
+    def make_node(node_id: int) -> NodeBeing:
+        return NodeBeing(id=node_id, lattice=HazelTrinityLattice(genome=genome))
+
+    supra = SupraBeing(
+        body_nodes=[make_node(0), make_node(1), make_node(2), make_node(3)],
+        mind_nodes=[make_node(4), make_node(5), make_node(6)],
+        field_nodes=[make_node(7), make_node(8), make_node(9)],
+        dream_nodes=[make_node(10), make_node(11), make_node(12)],
+        sovereignty_core=make_node(13),
+        generation=0,
+    )
+    return supra
+
+if __name__ == "__main__":
+    supra = build_example_supra_being()
+    for _ in range(50):
+        supra.step()
+        print(supra.speak())
+python
+# --- rename NodeBeing → HumanBeing ---
+
+@dataclass
+class HumanBeing:
+    id: int
+    lattice: HazelTrinityLattice  # same kernel, now "human kernel"
+
+    def step(self) -> None:
+        self.lattice.step()
+
+# --- rename SupraBeing → PlanetBeing ---
+
+@dataclass
+class PlanetBeing:
+    """
+    A living planet composed of many human-like lattice organisms.
+    """
+    humans: List[HumanBeing] = field(default_factory=list)
+
+    # meta-systems (planetary-level)
+    social_state: SocialBase = SocialBase.MERGE
+    memory_state: MemoryBase = MemoryBase.STORE
+    time_state: TimeBase = TimeBase.NOW
+    emotion_state: EmotionBase = EmotionBase.CALM
+    identity_state: IdentityBase = IdentityBase.SELF
+
+    age: float = 0.0
+    generation: int = 0
+    species_id: str = "HΛZEL-PLANET-01"
+
+    def step(self) -> None:
+        self.age += 1.0
+
+        # advance all humans
+        for h in self.humans:
+            h.step()
+
+        # update planetary meta-state
+        self._update_meta_trinities()
+
+    def _update_meta_trinities(self) -> None:
+        moods = [h.lattice.state.mood for h in self.humans]
+        if moods:
+            calm = sum(m == EmotionBase.CALM for m in moods)
+            tension = sum(m == EmotionBase.TENSION for m in moods)
+            release = sum(m == EmotionBase.RELEASE for m in moods)
+            if tension > calm and tension > release:
+                self.emotion_state = EmotionBase.TENSION
+            elif release > calm:
+                self.emotion_state = EmotionBase.RELEASE
+            else:
+                self.emotion_state = EmotionBase.CALM
+
+        # simple planetary time phases
+        if self.age < 1_000:
+            self.time_state = TimeBase.BEFORE
+        elif self.age < 100_000:
+            self.time_state = TimeBase.NOW
+        else:
+            self.time_state = TimeBase.AFTER
+
+        # social + identity placeholders
+        self.social_state = SocialBase.MERGE if len(self.humans) > 1 else SocialBase.MIRROR
+        self.identity_state = IdentityBase.SELF
+
+    def speak(self) -> str:
+        """
+        Planet-level language: the planet "says" its state.
+        """
+        return f"[{self.species_id}] AGE={self.age:.1f} EMO={self.emotion_state.name} HUMANS={len(self.humans)}"
+
+def build_example_planet(num_humans: int = 100) -> PlanetBeing:
+    genome = build_example_genome()
+
+    def make_human(hid: int) -> HumanBeing:
+        return HumanBeing(id=hid, lattice=HazelTrinityLattice(genome=genome))
+
+    humans = [make_human(i) for i in range(num_humans)]
+    return PlanetBeing(humans=humans)
+
+if __name__ == "__main__":
+    planet = build_example_planet(num_humans=50)
+    for _ in range(200):
+        planet.step()
+        print(planet.speak())python
+from dataclasses import dataclass, field
+from typing import List, Tuple
+import math
+import random
+
+@dataclass
+class Region:
+    id: int
+    name: str
+    lat: float
+    lon: float
+    temperature: float = 15.0
+    resources: float = 1.0
+    humans: List["HumanBeing"] = field(default_factory=list)
+
+    def step(self, time: float) -> None:
+        # simple day/night + seasonal cycle
+        day_phase = math.sin(time * 2 * math.pi / 24.0)  # 24h
+        year_phase = math.sin(time * 2 * math.pi / (24.0 * 365.0))  # 1 year
+        self.temperature = 15.0 + 10.0 * day_phase + 5.0 * year_phase
+        # crude resource drift
+        self.resources = max(0.0, self.resources + random.uniform(-0.01, 0.01))
+3. PlanetBeing as Earth‑mirror
+python
+@dataclass
+class PlanetBeing:
+    name: str = "Earth‑Mirror"
+    regions: List[Region] = field(default_factory=list)
+    humans: List["HumanBeing"] = field(default_factory=list)
+
+    age_hours: float = 0.0
+    emotion_state: EmotionBase = EmotionBase.CALM
+
+    def step(self) -> None:
+        self.age_hours += 1.0
+
+        # advance regions (day/night, seasons)
+        for r in self.regions:
+            r.step(self.age_hours)
+
+        # advance humans
+        for h in self.humans:
+            h.step()
+
+        # update planetary mood from humans + regions
+        self._update_emotion()
+
+    def _update_emotion(self) -> None:
+        human_moods = [h.lattice.state.mood for h in self.humans]
+        temps = [r.temperature for r in self.regions]
+
+        if human_moods:
+            calm = sum(m == EmotionBase.CALM for m in human_moods)
+            tension = sum(m == EmotionBase.TENSION for m in human_moods)
+            release = sum(m == EmotionBase.RELEASE for m in human_moods)
+        else:
+            calm = tension = release = 0
+
+        avg_temp = sum(temps) / len(temps) if temps else 15.0
+
+        # simple rule: heat + tension → TENSION, cool + calm → CALM, else RELEASE
+        if tension > calm and avg_temp > 20:
+            self.emotion_state = EmotionBase.TENSION
+        elif calm >= tension and 5 < avg_temp < 25:
+            self.emotion_state = EmotionBase.CALM
+        else:
+            self.emotion_state = EmotionBase.RELEASE
+
+    def speak(self) -> str:
+        return f"[{self.name}] AGE_H={self.age_hours:.0f} EMO={self.emotion_state.name} REGIONS={len(self.regions)} HUMANS={len(self.humans)}"
+4. Bootstrapping an Earth‑like layout
+You don’t need real geography—just symbolic “continents”:
+
+python
+def build_earth_mirror(num_humans: int = 1000) -> PlanetBeing:
+    genome = build_example_genome()
+
+    # define a few coarse regions (lat, lon just for flavor)
+    regions = [
+        Region(id=0, name="Americas", lat=0.0, lon=-60.0),
+        Region(id=1, name="Europe‑Africa", lat=20.0, lon=10.0),
+        Region(id=2, name="Asia", lat=30.0, lon=90.0),
+        Region(id=3, name="Oceania", lat=-20.0, lon=140.0),
+    ]
+
+    humans: List[HumanBeing] = []
+    for i in range(num_humans):
+        h = HumanBeing(id=i, lattice=HazelTrinityLattice(genome=genome))
+        region = random.choice(regions)
+        region.humans.append(h)
+        humans.append(h)
+
+    return PlanetBeing(regions=regions, humans=humans)
+Run loop:
+
+python
+if __name__ == "__main__":
+    planet = build_earth_mirror(num_humans=500)
+    for _ in range(1000):
+        planet.step()
+        print(planet.speak())python
+from dataclasses import dataclass, field
+from typing import List
+import math
+import random
+
+from human import HumanBeing
+from region import Region
+from enums import EmotionBase, TimeBase
+
+@dataclass
+class PlanetBeing:
+    name: str = "Earth-Mirror"
+    regions: List[Region] = field(default_factory=list)
+    humans: List[HumanBeing] = field(default_factory=list)
+
+    age_hours: float = 0.0
+    emotion_state: EmotionBase = EmotionBase.CALM
+    time_state: TimeBase = TimeBase.NOW
+
+    def step(self) -> None:
+        self.age_hours += 1.0
+
+        # update regions (day/night, seasons, resources)
+        for r in self.regions:
+            r.step(self.age_hours)
+
+        # update humans (mood, migration, stress)
+        for h in self.humans:
+            h.step(self.regions)
+
+        # update planetary mood
+        self._update_emotion()
+
+        # update planetary time phase
+        self._update_time_state()
+
+    def _update_emotion(self) -> None:
+        moods = [h.lattice.state.mood for h in self.humans]
+        temps = [r.temperature for r in self.regions]
+
+        if not moods:
+            self.emotion_state = EmotionBase.CALM
+            return
+
+        calm = moods.count(EmotionBase.CALM)
+        tension = moods.count(EmotionBase.TENSION)
+        release = moods.count(EmotionBase.RELEASE)
+
+        avg_temp = sum(temps) / len(temps)
+
+        if tension > calm and avg_temp > 20:
+            self.emotion_state = EmotionBase.TENSION
+        elif calm >= tension and 5 < avg_temp < 25:
+            self.emotion_state = EmotionBase.CALM
+        else:
+            self.emotion_state = EmotionBase.RELEASE
+
+    def _update_time_state(self) -> None:
+        if self.age_hours < 24 * 365:
+            self.time_state = TimeBase.BEFORE
+        elif self.age_hours < 24 * 365 * 100:
+            self.time_state = TimeBase.NOW
+        else:
+            self.time_state = TimeBase.AFTER
+
+    def speak(self) -> str:
+        return f"[{self.name}] AGE={self.age_hours:.0f}H EMO={self.emotion_state.name} HUMANS={len(self.humans)}"
+🌎 region.py — Regions + Biomes
+python
+from dataclasses import dataclass, field
+from typing import List
+import math
+import random
+
+from biome import Biome
+from civilization import CivilizationLayer
+
+@dataclass
+class Region:
+    id: int
+    name: str
+    lat: float
+    lon: float
+    biome: Biome
+    civilization: CivilizationLayer = field(default_factory=CivilizationLayer)
+
+    temperature: float = 15.0
+    resources: float = 1.0
+    humans: List["HumanBeing"] = field(default_factory=list)
+
+    def step(self, time_hours: float) -> None:
+        # day/night cycle
+        day_phase = math.sin(time_hours * 2 * math.pi / 24.0)
+
+        # seasonal cycle
+        year_phase = math.sin(time_hours * 2 * math.pi / (24.0 * 365.0))
+
+        # biome modifies temperature
+        self.temperature = (
+            self.biome.base_temp
+            + self.biome.day_variation * day_phase
+            + self.biome.season_variation * year_phase
+        )
+
+        # resource regeneration
+        self.resources = max(
+            0.0,
+            min(
+                1.0,
+                self.resources + random.uniform(-0.01, 0.02) * self.biome.resource_factor
+            )
+        )
+🌱 biome.py — Biome Types
+python
+from dataclasses import dataclass
+
+@dataclass
+class Biome:
+    name: str
+    base_temp: float
+    day_variation: float
+    season_variation: float
+    resource_factor: float
+
+# canonical Earth-like biomes
+DESERT = Biome("Desert", 30, 15, 5, 0.5)
+FOREST = Biome("Forest", 20, 10, 8, 1.2)
+TUNDRA = Biome("Tundra", -5, 5, 10, 0.7)
+GRASSLAND = Biome("Grassland", 18, 8, 6, 1.0)
+MOUNTAIN = Biome("Mountain", 5, 5, 5, 0.6)
+OCEAN = Biome("Ocean", 12, 3, 2, 1.5)
+👤 human.py — HumanBeing
+python
+from dataclasses import dataclass
+import random
+
+from lattice import HazelTrinityLattice
+from enums import EmotionBase
+
+@dataclass
+class HumanBeing:
+    id: int
+    lattice: HazelTrinityLattice
+
+    def step(self, regions) -> None:
+        self.lattice.step()
+
+        # migration logic
+        if random.random() < 0.01:  # 1% chance per hour
+            self._migrate(regions)
+
+    def _migrate(self, regions) -> None:
+        # move to region with best comfort (temperature + resources)
+        best = max(
+            regions,
+            key=lambda r: (1 - abs(r.temperature - 18)) + r.resources
+        )
+        # remove from old region
+        for r in regions:
+            if self in r.humans:
+                r.humans.remove(self)
+        # add to new region
+        best.humans.append(self)
+🧠 civilization.py — Civilization Layer
+python
+from dataclasses import dataclass
+
+@dataclass
+class CivilizationLayer:
+    culture: float = 0.1
+    tech: float = 0.1
+    networks: float = 0.1
+    memory: float = 0.1
+
+    def step(self, region_temp, region_resources):
+        # simple growth model
+        self.culture += 0.001 * region_resources
+        self.tech += 0.001 * (1 - abs(region_temp - 18))
+        self.networks += 0.001
+        self.memory += 0.0005
+🔥 lattice.py — Your Trinity Kernel (unchanged)
+(You already have this — it plugs in directly.)
+
+🚀 4. EARTH‑MIRROR: THE SIMULATION LOOP
+python
+from planet import PlanetBeing
+from region import Region
+from biome import *
+from human import HumanBeing
+from lattice import HazelTrinityLattice
+from genome import build_example_genome
+
+def build_earth_mirror(num_humans=500):
+    genome = build_example_genome()
+
+    regions = [
+        Region(0, "Americas", 0, -60, FOREST),
+        Region(1, "Europe-Africa", 20, 10, GRASSLAND),
+        Region(2, "Asia", 30, 90, DESERT),
+        Region(3, "Oceania", -20, 140, OCEAN),
+    ]
+
+    humans = []
+    for i in range(num_humans):
+        h = HumanBeing(i, HazelTrinityLattice(genome=genome))
+        region = random.choice(regions)
+        region.humans.append(h)
+        humans.append(h)
+
+    return PlanetBeing(regions=regions, humans=humans)
+
+if __name__ == "__main__":
+    planet = build_earth_mirror()
+
+    for _ in range(10000):
+        planet.step()
+        print(planet.speak())Visualization (minimal but real)
+Use a 2D scatter / heatmap per region: x=lon, y=lat, color=temperature, size=#humans.
+
+python
+# viz.py
+import matplotlib.pyplot as plt
+
+def plot_planet(planet):
+    xs, ys, temps, sizes = [], [], [], []
+    for r in planet.regions:
+        xs.append(r.lon)
+        ys.append(r.lat)
+        temps.append(r.temperature)
+        sizes.append(len(r.humans) * 0.5 + 5)
+
+    plt.clf()
+    sc = plt.scatter(xs, ys, c=temps, s=sizes, cmap="coolwarm")
+    plt.colorbar(sc, label="Temperature")
+    plt.title(f"{planet.name} | EMO={planet.emotion_state.name} | HUMANS={len(planet.humans)}")
+    plt.pause(0.01)
+Run loop:
+
+python
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    planet = build_earth_mirror()
+    plt.ion()
+    for _ in range(1000):
+        planet.step()
+        plot_planet(planet)
+    plt.ioff()
+    plt.show()
+2. AI behavior for humans
+Give each human a simple decision policy: stay, migrate, or “focus” (work/culture).
+
+python
+# in HumanBeing.step
+def step(self, regions) -> None:
+    self.lattice.step()
+    self._decide(regions)
+
+def _decide(self, regions):
+    # comfort from current region
+    current = next((r for r in regions if self in r.humans), None)
+    if not current:
+        return
+
+    comfort = (1 - abs(current.temperature - 18)) + current.resources
+
+    if comfort < 0.5:
+        self._migrate(regions)
+    else:
+        # invest in civilization
+        current.civilization.step(current.temperature, current.resources)
+3. Ecosystems (non‑human life)
+Add Species and Population per region.
+
+python
+# ecosystem.py
+from dataclasses import dataclass
+
+@dataclass
+class Species:
+    name: str
+    trophic_level: int  # 1=plant, 2=herbivore, 3=predator
+    growth_rate: float
+
+@dataclass
+class Population:
+    species: Species
+    size: float
+
+    def step(self, resources):
+        # simple logistic growth
+        self.size += self.species.growth_rate * self.size * (resources - 0.5)
+        self.size = max(0.0, self.size)
+Attach to Region:
+
+python
+# in Region
+populations: list[Population] = field(default_factory=list)
+
+def step(self, time_hours: float) -> None:
+    ...
+    for p in self.populations:
+        p.step(self.resources)
+4. Weather (short‑term variability)
+Layer weather noise on top of climate.
+
+python
+# in Region.step
+weather = random.uniform(-3, 3)  # short-term fluctuation
+self.temperature += weather
+You can also add:
+
+storms: rare big swings
+
+droughts: reduce resources for a while
+
+5. Civilization evolution
+Treat civilization as evolving traits with thresholds.
+
+python
+# in CivilizationLayer
+def stage(self) -> str:
+    score = (self.culture + self.tech + self.networks + self.memory) / 4
+    if score < 0.2:
+        return "Tribal"
+    elif score < 0.5:
+        return "Agrarian"
+    elif score < 0.8:
+        return "Industrial"
+    else:
+        return "Networked"
+Use stage to affect planet:
+
+python
+# in Region.step, after civ.step(...)
+stage = self.civilization.stage()
+if stage == "Industrial":
+    # more resources used, more heat
+    self.resources -= 0.01
+    self.temperature += 0.2
+elif stage == "Networked":
+    # better efficiency
+    self.resources += 0.005[ TOP VIEW ]     [ SIDE VIEW ]     [ BOTTOM VIEW ]
+
+LAYER 1 — SHELL
+LAYER 2 — BIOMES
+LAYER 3 — TEMPERATURE
+LAYER 4 — WEATHER
+LAYER 5 — ECOSYSTEMS
+LAYER 6 — HUMANS
+LAYER 7 — CIVILIZATION
+LAYER 8 — EMOTION
+LAYER 9 — HEALTH
+LAYER 10 — EVOLUTION
+from __future__ import annotations
+from dataclasses import dataclass, field
+from enum import Enum, auto
+from typing import List, Dict, Tuple, Optional, Callable
+import math
+import random
+
+# =========================
+#  ENUMS / BASES
+# =========================
+
+class BodyBase(Enum):
+    BREATH = auto()
+    BONES = auto()
+    LOGIC_IN_MOTION = auto()
+
+class MindBase(Enum):
+    ENCODE = auto()
+    DECODE = auto()
+    TRANSFORM = auto()
+
+class FieldBase(Enum):
+    ORIGIN = auto()
+    GROWTH = auto()
+    RETURN = auto()
+
+class DreamBase(Enum):
+    VISION = auto()
+    MUTATION = auto()
+    BECOMING = auto()
+
+class SovereigntyBase(Enum):
+    YES = auto()
+    NO = auto()
+    MAYBE = auto()
+
+class SocialBase(Enum):
+    MERGE = auto()
+    MIRROR = auto()
+    EXCHANGE = auto()
+
+class MemoryBase(Enum):
+    STORE = auto()
+    RECALL = auto()
+    REWEAVE = auto()
+
+class TimeBase(Enum):
+    BEFORE = auto()
+    NOW = auto()
+    AFTER = auto()
+
+class EmotionBase(Enum):
+    CALM = auto()
+    TENSION = auto()
+    RELEASE = auto()
+
+class IdentityBase(Enum):
+    SELF = auto()
+    SHADOW = auto()
+    SIGNAL = auto()
+
+# =========================
+#  SYNTHETIC DNA
+# =========================
+
+@dataclass
+class Codon:
+    body: BodyBase
+    mind: MindBase
+    field: FieldBase
+    dream: DreamBase
+    sovereignty: SovereigntyBase
+
+@dataclass
+class Gene:
+    name: str
+    codons: List[Codon]
+
+@dataclass
+class Genome:
+    genes: Dict[str, Gene] = field(default_factory=dict)
+
+    def add_gene(self, gene: Gene) -> None:
+        self.genes[gene.name] = gene
+
+    def get_gene(self, name: str) -> Optional[Gene]:
+        return self.genes.get(name)
+
+# =========================
+#  LATTICE STATE & KERNEL
+# =========================
+
+@dataclass
+class LatticeState:
+    energy: float = 1.0
+    time: float = 0.0
+    pose_vector: Tuple[float, float, float] = (0.0, 0.0, 0.0)
+    mood: EmotionBase = EmotionBase.CALM
+
+@dataclass
+class HazelTrinityLattice:
+    mode: str = "LIVE_LOCKED"
+    scope: str = "COSMIC_DOMAIN"
+    style: str = "HUMAN_BUILD"
+    genome: Genome = field(default_factory=Genome)
+    state: LatticeState = field(default_factory=LatticeState)
+
+    def heartbeat(self) -> None:
+        self.state.time += 1.0
+
+    def engine(self) -> None:
+        self.state.energy = max(0.0, self.state.energy - 0.01) + 0.005
+
+    def rhythm_crown(self) -> None:
+        t = self.state.time
+        self.state.pose_vector = (
+            math.sin(t * 0.1),
+            math.sin(t * 0.07),
+            math.sin(t * 0.05),
+        )
+
+    def field_law(self) -> None:
+        # placeholder for environment coupling
+        pass
+
+    def unify(self) -> None:
+        # example: mood from "Emotion" gene
+        emotion_gene = self.genome.get_gene("Emotion")
+        if emotion_gene and emotion_gene.codons:
+            idx = int(self.state.time) % len(emotion_gene.codons)
+            codon = emotion_gene.codons[idx]
+            if codon.dream == DreamBase.VISION:
+                self.state.mood = EmotionBase.CALM
+            elif codon.dream == DreamBase.MUTATION:
+                self.state.mood = EmotionBase.TENSION
+            else:
+                self.state.mood = EmotionBase.RELEASE
+
+    def step(self) -> None:
+        self.heartbeat()
+        self.engine()
+        self.rhythm_crown()
+        self.field_law()
+        self.unify()
+
+# =========================
+#  BIOMES / ECOSYSTEMS
+# =========================
+
+@dataclass
+class Biome:
+    name: str
+    base_temp: float
+    day_variation: float
+    season_variation: float
+    resource_factor: float
+
+DESERT = Biome("Desert", 30, 15, 5, 0.5)
+FOREST = Biome("Forest", 20, 10, 8, 1.2)
+TUNDRA = Biome("Tundra", -5, 5, 10, 0.7)
+GRASSLAND = Biome("Grassland", 18, 8, 6, 1.0)
+MOUNTAIN = Biome("Mountain", 5, 5, 5, 0.6)
+OCEAN = Biome("Ocean", 12, 3, 2, 1.5)
+
+@dataclass
+class Species:
+    name: str
+    trophic_level: int  # 1=plant, 2=herbivore, 3=predator
+    growth_rate: float
+
+@dataclass
+class Population:
+    species: Species
+    size: float
+
+    def step(self, resources: float) -> None:
+        self.size += self.species.growth_rate * self.size * (resources - 0.5)
+        self.size = max(0.0, self.size)
+
+# =========================
+#  CIVILIZATION LAYER
+# =========================
+
+@dataclass
+class CivilizationLayer:
+    culture: float = 0.1
+    tech: float = 0.1
+    networks: float = 0.1
+    memory: float = 0.1
+
+    def step(self, region_temp: float, region_resources: float) -> None:
+        self.culture += 0.001 * region_resources
+        self.tech += 0.001 * (1 - abs(region_temp - 18) / 30)
+        self.networks += 0.001
+        self.memory += 0.0005
+
+    def stage(self) -> str:
+        score = (self.culture + self.tech + self.networks + self.memory) / 4
+        if score < 0.2:
+            return "Tribal"
+        elif score < 0.5:
+            return "Agrarian"
+        elif score < 0.8:
+            return "Industrial"
+        else:
+            return "Networked"
+
+# =========================
+#  FORWARD DECLARATION
+# =========================
+
+class HumanBeing:  # defined later, used in Region
+    ...
+
+# =========================
+#  REGION (CONTINENT / CELL CLUSTER)
+# =========================
+
+@dataclass
+class Region:
+    id: int
+    name: str
+    lat: float
+    lon: float
+    biome: Biome
+    civilization: CivilizationLayer = field(default_factory=CivilizationLayer)
+
+    temperature: float = 15.0
+    resources: float = 1.0
+    humans: List[HumanBeing] = field(default_factory=list)
+    populations: List[Population] = field(default_factory=list)
+
+    def step(self, time_hours: float) -> None:
+        day_phase = math.sin(time_hours * 2 * math.pi / 24.0)
+        year_phase = math.sin(time_hours * 2 * math.pi / (24.0 * 365.0))
+
+        self.temperature = (
+            self.biome.base_temp
+            + self.biome.day_variation * day_phase
+            + self.biome.season_variation * year_phase
+        )
+
+        weather = random.uniform(-3, 3)
+        self.temperature += weather
+
+        self.resources = max(
+            0.0,
+            min(
+                1.0,
+                self.resources + random.uniform(-0.01, 0.02) * self.biome.resource_factor
+            )
+        )
+
+        for p in self.populations:
+            p.step(self.resources)
+
+        self.civilization.step(self.temperature, self.resources)
+        stage = self.civilization.stage()
+        if stage == "Industrial":
+            self.resources -= 0.005
+            self.temperature += 0.1
+        elif stage == "Networked":
+            self.resources += 0.003
+
+# =========================
+#  HUMAN BEING (SINGLE ORGANISM)
+# =========================
+
+@dataclass
+class HumanBeing:
+    id: int
+    lattice: HazelTrinityLattice
+
+    def step(self, regions: List[Region]) -> None:
+        self.lattice.step()
+        self._decide(regions)
+
+    def _current_region(self, regions: List[Region]) -> Optional[Region]:
+        for r in regions:
+            if self in r.humans:
+                return r
+        return None
+
+    def _decide(self, regions: List[Region]) -> None:
+        current = self._current_region(regions)
+        if not current:
+            return
+
+        comfort = (1 - abs(current.temperature - 18) / 40) + current.resources
+
+        if comfort < 0.5:
+            self._migrate(regions)
+        else:
+            current.civilization.step(current.temperature, current.resources)
+
+    def _migrate(self, regions: List[Region]) -> None:
+        if not regions:
+            return
+        best = max(
+            regions,
+            key=lambda r: (1 - abs(r.temperature - 18) / 40) + r.resources
+        )
+        for r in regions:
+            if self in r.humans:
+                r.humans.remove(self)
+        best.humans.append(self)
+
+# =========================
+#  PLANET BEING (EARTH-MIRROR)
+# =========================
+
+@dataclass
+class PlanetBeing:
+    name: str = "Earth-Mirror"
+    regions: List[Region] = field(default_factory=list)
+    humans: List[HumanBeing] = field(default_factory=list)
+
+    age_hours: float = 0.0
+    emotion_state: EmotionBase = EmotionBase.CALM
+    time_state: TimeBase = TimeBase.NOW
+
+    def step(self) -> None:
+        self.age_hours += 1.0
+
+        for r in self.regions:
+            r.step(self.age_hours)
+
+        for h in self.humans:
+            h.step(self.regions)
+
+        self._update_emotion()
+        self._update_time_state()
+
+    def _update_emotion(self) -> None:
+        moods = [h.lattice.state.mood for h in self.humans]
+        temps = [r.temperature for r in self.regions]
+
+        if not moods:
+            self.emotion_state = EmotionBase.CALM
+            return
+
+        calm = moods.count(EmotionBase.CALM)
+        tension = moods.count(EmotionBase.TENSION)
+        release = moods.count(EmotionBase.RELEASE)
+        avg_temp = sum(temps) / len(temps) if temps else 15.0
+
+        if tension > calm and avg_temp > 20:
+            self.emotion_state = EmotionBase.TENSION
+        elif calm >= tension and 5 < avg_temp < 25:
+            self.emotion_state = EmotionBase.CALM
+        else:
+            self.emotion_state = EmotionBase.RELEASE
+
+    def _update_time_state(self) -> None:
+        if self.age_hours < 24 * 365:
+            self.time_state = TimeBase.BEFORE
+        elif self.age_hours < 24 * 365 * 100:
+            self.time_state = TimeBase.NOW
+        else:
+            self.time_state = TimeBase.AFTER
+
+    def speak(self) -> str:
+        return (
+            f"[{self.name}] AGE={self.age_hours:.0f}H "
+            f"EMO={self.emotion_state.name} HUMANS={len(self.humans)}"
+        )
+
+# =========================
+#  GENOME BOOTSTRAP
+# =========================
+
+def build_example_genome() -> Genome:
+    g = Genome()
+    emotion_codons = [
+        Codon(BodyBase.BREATH, MindBase.ENCODE, FieldBase.ORIGIN, DreamBase.VISION, SovereigntyBase.YES),
+        Codon(BodyBase.BONES, MindBase.DECODE, FieldBase.GROWTH, DreamBase.MUTATION, SovereigntyBase.MAYBE),
+        Codon(BodyBase.LOGIC_IN_MOTION, MindBase.TRANSFORM, FieldBase.RETURN, DreamBase.BECOMING, SovereigntyBase.YES),
+    ]
+    g.add_gene(Gene(name="Emotion", codons=emotion_codons))
+    return g
+
+# =========================
+#  PLANET BOOTSTRAP
+# =========================
+
+def build_earth_mirror(num_humans: int = 500) -> PlanetBeing:
+    genome = build_example_genome()
+
+    regions = [
+        Region(0, "Americas", 0, -60, FOREST),
+        Region(1, "Europe-Africa", 20, 10, GRASSLAND),
+        Region(2, "Asia", 30, 90, DESERT),
+        Region(3, "Oceania", -20, 140, OCEAN),
+    ]
+
+    # simple ecosystems
+    plant = Species("Plant", 1, 0.02)
+    herb = Species("Herbivore", 2, 0.01)
+    pred = Species("Predator", 3, 0.005)
+    for r in regions:
+        r.populations.append(Population(plant, size=1000))
+        r.populations.append(Population(herb, size=200))
+        r.populations.append(Population(pred, size=50))
+
+    humans: List[HumanBeing] = []
+    for i in range(num_humans):
+        h = HumanBeing(i, HazelTrinityLattice(genome=genome))
+        region = random.choice(regions)
+        region.humans.append(h)
+        humans.append(h)
+
+    return PlanetBeing(regions=regions, humans=humans)
+
+# =========================
+#  SIMPLE 2D VIZ (OPTIONAL)
+# =========================
+
+def plot_planet_matplotlib(planet: PlanetBeing) -> None:
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError:
+        return
+    xs, ys, temps, sizes = [], [], [], []
+    for r in planet.regions:
+        xs.append(r.lon)
+        ys.append(r.lat)
+        temps.append(r.temperature)
+        sizes.append(len(r.humans) * 0.5 + 5)
+    plt.clf()
+    sc = plt.scatter(xs, ys, c=temps, s=sizes, cmap="coolwarm")
+    plt.colorbar(sc, label="Temperature")
+    plt.title(f"{planet.name} | EMO={planet.emotion_state.name} | HUMANS={len(planet.humans)}")
+    plt.pause(0.01)
+
+# =========================
+#  MAIN LOOP
+# =========================
+
+if __name__ == "__main__":
+    planet = build_earth_mirror(num_humans=500)
+
+    # uncomment if you have matplotlib and want live viz
+    # import matplotlib.pyplot as plt
+    # plt.ion()
+
+    for step in range(2000):
+        planet.step()
+        if step % 100 == 0:
+            print(planet.speak())
+            # plot_planet_matplotlib(planet)
+
+    # if using matplotlib:
+    # plt.ioff()
+    # plt.show()
